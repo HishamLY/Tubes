@@ -1,0 +1,2 @@
+# DataBase
+Tempat menyimpan dataBase
