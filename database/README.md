@@ -1,2 +1,2 @@
-# DataBase
-Tempat menyimpan dataBase
+# DataBase Folder
+Untuk menyimpan semua database yang dibutuhkan
