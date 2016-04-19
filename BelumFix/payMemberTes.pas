@@ -45,7 +45,7 @@ end;
 
 
 //prosedur login
-procedure login(T: dbMember; var cek: boolean; var idx: integer);
+procedure login(T: dbMember; var idx: integer);
 
 //kamus
 var a : integer;
@@ -60,7 +60,7 @@ begin
 	readln(user);
 	write('> Masukkan password :');
 	readln(sandi);
-	while (Found = False) and (a <= 1000) do
+	while (Found = False) and (a <= 100) do
 	begin
 		if (user = T.Member[a].UserName) and (sandi = T.Member[a].Password) then
 		begin
@@ -76,13 +76,13 @@ begin
 	if (found = False) then
 	begin
 		writeln('> Username atau password salah');
+		a := 0
 	end;
-	cek:= found;
 	idx := a;
 end;
 
 //kamus
-var isLogin : boolean;
+var 
 	T3 : dbMember;
 	T2 : tabDataFilm;
 	T1 : tabPemesanan;
@@ -104,10 +104,9 @@ begin
 	T3.Member[3].UserName := 'anang';
 	T3.Member[3].Password := 'akuganteng';
 	T3.Member[3].Saldo := 150000;
-	login(T3, isLogin, i);
-	writeln(i);
+	login(T3, i);
 	//fungsi paymember
-	if (isLogin = True) then
+	if (i > 0) then
 	begin
 		writeln('> Anda akan melakukan pembayaran menggunakan saldo member');
 		write('> Nomor pesanan: ');
@@ -115,7 +114,7 @@ begin
 		c := StrToInt(nopesan[3]);
 		Val(T1[c].Total,harga); 			//mengubah isi dari tabel ke long int dan menampungnya ke suatu variable 
 		writeln('> Harga yang harus dibayar: ',harga);
-		if (T3.Member[i].Saldo >= harga) then
+		if (T3.Member[i].Saldo > harga) then
 			begin
 				sisaSaldo:= T3.Member[i].Saldo - harga;
 				writeln('> Sisa saldo anda adalah : ',sisaSaldo);
@@ -127,7 +126,6 @@ begin
 
 	//mmengganti status pencatatan di array
 	T1[c].JenisPembayaran := 'Member';
-	T3.Member[c].Saldo := sisaSaldo;
 	end;
 end.
 
