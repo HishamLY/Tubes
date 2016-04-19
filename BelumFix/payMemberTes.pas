@@ -115,7 +115,7 @@ begin
 		c := StrToInt(nopesan[3]);
 		Val(T1[c].Total,harga); 			//mengubah isi dari tabel ke long int dan menampungnya ke suatu variable 
 		writeln('> Harga yang harus dibayar: ',harga);
-		if (T3.Member[i].Saldo > harga) then
+		if (T3.Member[i].Saldo >= harga) then
 			begin
 				sisaSaldo:= T3.Member[i].Saldo - harga;
 				writeln('> Sisa saldo anda adalah : ',sisaSaldo);
@@ -127,6 +127,7 @@ begin
 
 	//mmengganti status pencatatan di array
 	T1[c].JenisPembayaran := 'Member';
+	T3.Member[c].Saldo := sisaSaldo;
 	end;
 end.
 
