@@ -18,6 +18,19 @@ end;
 procedure load (var f:text;p:string);
 procedure loadTayang(var dT: dbTayang);
 
+function idx ( f : string; T : dbTayang) : integer;
+{Fungsi yang digunakan untuk mencari index pertama dari suatu film}
+
+procedure TulisJam (idx : integer; f : string; T : dbTayang; dd,mm,yy : integer);
+{	Procedure TulisJam digunakan untuk menuliskan Jam Tayang dari suatu Film pada tanggal tertentu
+	I.S : idx, f, T, dd, mm, yy telah terdefinisi
+	F.S : Menuliskan Jam Tayang kepada user 	}
+
+procedure schedule( T : dbTayang);
+{	Procedure schedule digunakan untuk menampilkan Jam Tayang dari input user
+	I.S : T terdefinisi
+	F.S : Menuliskan Jam Tayang Film kepada user	}
+
 implementation
 procedure load (var f:text;p:string);
 begin
@@ -65,6 +78,96 @@ begin
     	writeln;
     end;
 
+end;
+
+function idx ( f : string; T : dbTayang) : integer;
+
+{Kamus}
+var
+	i : integer;
+{Algoritma}
+begin
+	i := 1;
+	while (f<>T.Tayang[i].Nama) and (i<=T.Neff) do
+	begin
+		if (T.Tayang[i].Nama=f) then
+			idx := i;
+		i := i + 1;
+	end;			
+end;
+	
+procedure TulisJam (idx : integer; f : string; T : dbTayang; dd,mm,yy : integer);
+
+{Kamus}
+var
+	j, i : integer;
+	h,b,y : integer;
+	
+{Algoritma}
+begin
+	y := T.Tayang[idx].Tahun;
+	b := T.Tayang[idx].Bulan;
+	h := T.Tayang[idx].Tanggal;
+	if (yy = y) and (mm = b) then
+		begin
+			for j := h  to (h+6) do
+			begin
+				if ( j = dd ) then 
+				begin
+					for i := idx to (idx+3) do
+					begin
+						if (T.Tayang[i].Nama=f) then
+							writeln('> ',T.Tayang[i].Jam);
+					end;
+				end;
+			end;
+		end;
+end;
+
+procedure schedule( T : dbTayang);
+
+{Kamus}
+var
+	d, tempstring	: string;
+	f	: string;
+	i : integer;
+	index	: integer;
+	dd, mm ,yy : integer;
+		
+{Algoritma}
+begin
+	write('> Film : ');
+	readln(f);
+	repeat
+	write('> Tanggal tayang : ');
+	readln(d);
+	
+	//Konversi input user dari String to Integer
+	tempstring := '';
+	for i := 1 to 2 do
+	begin
+		tempstring := tempstring + d [i]
+	end;
+	dd := StrToInt(tempstring) ;
+	tempstring := '';
+	for i := 4 to 5 do
+	begin
+		tempstring := tempstring + d [i]
+	end;
+	mm := StrToInt(tempstring);
+	tempstring := '';
+	for i := 7 to 10 do
+	begin
+		tempstring := tempstring + d [i]
+	end;
+	yy := StrToInt(tempstring);
+	
+	
+	//Pencarian Film dan Penampilan Jam
+	index := idx(f,T);
+	TulisJam(index,f,T,dd,mm,yy);
+	
+	until ((isTanggalValid(dd,mm,yy)=True) and (index<T.Neff));
 end;
 
 	
