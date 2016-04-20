@@ -82,7 +82,7 @@ var
 
 {Algoritma}
 begin
-		assign(fin1, 'kapasitas.txt');
+		assign(fin1, 'database/kapasitas.txt');
 		rewrite(fin1);
 		for i := 1 to T1.Neff do
 		begin
@@ -91,7 +91,7 @@ begin
 			Str(T1.Kapasitas[i].Tahun, tahun);
 			write(fin1, T1.Kapasitas[i].Nama,' | ',tanggal,' | ',bulan,' | ',tahun,' | ',T1.Kapasitas[i].Jam,' | ',T1.Kapasitas[i].Kapasitas,' | ')
 		end;
-		assign(fin2, 'datapemesanan.txt');
+		assign(fin2, 'database/pemesanan.txt');
 		rewrite(fin2);
 		for j := 1 to T2.Neff do
 		begin
@@ -102,7 +102,7 @@ begin
 			Str(T2.Pemesanan[i].Total, total);
 			write(fin2, nomor,' | ',tanggal,' | ',bulan,' | ',tahun,' | ',T2.Pemesanan[i].Jam,' | ',T2.Pemesanan[i].Jumlahkursi,' | ',total,' | ',T2.Pemesanan[i].Jenis,' | ')
 		end;
-		assign(fin3, 'member.txt');
+		assign(fin3, 'database/member.txt');
 		rewrite(fin3);
 		for k := 1 to T3.Neff do
 		begin
